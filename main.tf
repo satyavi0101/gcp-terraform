@@ -1,12 +1,21 @@
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+  }
+}
+
 provider "google" {
-  credentials = file("service-account.json")
-  project     = "gcp-terraform" # temporary
+  credentials = var.gcp_credentials
+  project     = "gifted-decker-469618-t5" # your existing project
   region      = "us-central1"
 }
 
-resource "google_project" "new_project" {
-  name            = "gcp-terraform"
-  project_id      = "my-first-project-12345"
-  org_id          = ""
-  billing_account = "YOUR_BILLING_ACCOUNT_ID"
+# Example resource: a storage bucket
+resource "google_storage_bucket" "example_bucket" {
+  name          = "my-terraform-bucket-2025"
+  location      = "US"
+  force_destroy = true
 }
